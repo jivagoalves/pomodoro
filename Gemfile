@@ -41,3 +41,5 @@ group :test, :development do
   gem 'cucumber-rails'
   gem 'rspec-rails'
 end
+
+gem 'haml-rails'
