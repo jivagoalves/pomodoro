@@ -10,6 +10,10 @@ describe "activities/new" do
     rendered.should have_selector('#counter')
   end
 
+  it 'should have the counter with content 25:00' do
+    rendered.should have_selector('#counter', :text => '25:00')
+  end
+
   it 'should have a form for @activity' do
     rendered.should have_selector('form',
                                   :method => 'post',
