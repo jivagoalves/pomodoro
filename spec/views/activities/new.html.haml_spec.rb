@@ -6,6 +6,10 @@ describe "activities/new" do
     render
   end
 
+  it 'should have a div with id counter' do
+    rendered.should have_selector('#counter')
+  end
+
   it 'should have a form for @activity' do
     rendered.should have_selector('form',
                                   :method => 'post',
