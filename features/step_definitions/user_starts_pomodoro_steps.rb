@@ -5,7 +5,7 @@ When /^I go to the home page$/ do
   visit root_path
 end
 
-Then /^I should see a form to add my activities$/ do
+Then /^I should see a text field to add activities$/ do
   page.should have_selector(
     %Q{#add_activity form[method='post'][action='#{activities_path}']}
   )
