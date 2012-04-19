@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe "activities/new" do
   before :each do
+    act = mock_model('Activity')
+    act.stub(:description).
+      and_return('description 1')
+    assign(:activities, [act])
     assign(:activity, mock_model('Activity').as_new_record)
     render
   end
@@ -21,6 +25,12 @@ describe "activities/new" do
   end
 
   it 'should have a field text for description' do
-    rendered.should have_selector('form input[type="text"][name="activity[description]"]')
+    rendered.should have_selector(
+      'form input[type="text"][name="activity[description]"]'
+    )
+  end
+
+  it 'should render all exiting activities' do
+    rendered.should have_selector('.activity', :text => 'description 1')
   end
 end
