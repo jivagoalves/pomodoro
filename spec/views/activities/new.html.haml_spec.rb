@@ -34,17 +34,24 @@ describe "activities/new" do
   end
 
   context 'given existing activities' do
+    let(:activities) do
+      (0..3).each.inject([]) do |ary, n|
+        ary << FactoryGirl.create(:activity,
+                                   :description => "description #{n}")
+      end
+    end
+
     before :each do
-      act = mock_model('Activity')
-      act.stub(:description).and_return('description 1')
-      assign(:activities, [act])
+      assign(:activities, activities)
       render
     end
 
     it 'should render all exiting activities' do
-      rendered.should have_selector(
-        '.activity', :text => 'description 1'
-      )
+      activities.each do |activity|
+        rendered.should have_selector(
+          '.activity', :text => activity.description
+        )
+      end
     end
   end
 end
