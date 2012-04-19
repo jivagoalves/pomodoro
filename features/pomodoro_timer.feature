@@ -1,4 +1,4 @@
-Feature: User starts a pomodoro
+Feature: Pomodoro Timer
   In order to focus on my activities
   As an Pomodoro user
   I want to manage my time using the Pomodoro technique
