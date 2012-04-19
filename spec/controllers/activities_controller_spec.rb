@@ -5,6 +5,7 @@ describe ActivitiesController do
     before :each do
       mock_model('Activity')
       Activity.should_receive(:new).and_return("a new activity")
+      Activity.should_receive(:all).and_return(['activities'])
       get :new
     end
 
@@ -14,6 +15,10 @@ describe ActivitiesController do
 
     it 'should assign @activity with a new activity' do
       assigns(:activity).should == "a new activity"
+    end
+
+    it 'should assign @activities with all existing activities' do
+      assigns(:activities).should == ['activities']
     end
   end
 

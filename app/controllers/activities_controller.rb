@@ -1,6 +1,7 @@
 class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
+    @activities = Activity.all
   end
 
   def create
