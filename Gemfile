@@ -40,6 +40,7 @@ gem 'jquery-rails'
 group :test, :development do
   gem 'cucumber-rails'
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 gem 'haml-rails'
