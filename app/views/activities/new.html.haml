@@ -5,5 +5,5 @@
     =f.text_field :description
     =f.submit :id => 'save_activity'
 
-= @activities.each do |activity|
+- @activities.each do |activity|
   .activity= activity.description
