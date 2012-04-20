@@ -41,6 +41,7 @@ group :test, :development do
   gem 'cucumber-rails'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'jasmine'
 end
 
 gem 'haml-rails'
