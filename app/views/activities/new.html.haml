@@ -1,5 +1,7 @@
 #counter= '25:00'
 
+%input#start_timer{ :type => 'button', :value => 'Start' }
+
 #add_activity
   = form_for(@activity) do |f|
     =f.text_field :description

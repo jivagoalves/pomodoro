@@ -26,3 +26,9 @@ end
 Then /^I should see Activity (\d+)$/ do |description|
   page.should have_selector('.activity', :text => description)
 end
+
+Then /^I should see a button to start the counter$/ do
+  page.should have_selector(
+    '#start_timer[value="Start"][type="button"]'
+  )
+end
