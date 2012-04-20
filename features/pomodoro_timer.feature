@@ -7,8 +7,8 @@ Feature: Pomodoro Timer
     Given I want to use this cool application
     When I go to the home page
     Then I should see a text field to add activities
-    And I should see a counter
-    And I should see a button to start the counter
+    And I should see a timer
+    And I should see a button to start the timer
 
   Scenario Outline: User adds an activity
     Given I am on the home page

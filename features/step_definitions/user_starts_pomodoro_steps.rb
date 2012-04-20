@@ -11,8 +11,8 @@ Then /^I should see a text field to add activities$/ do
   )
 end
 
-Then /^I should see a counter$/ do
-  page.should have_selector('#counter')
+Then /^I should see a timer$/ do
+  page.should have_selector('#timer')
 end
 
 When /^I press the key enter$/ do
@@ -27,7 +27,7 @@ Then /^I should see Activity (\d+)$/ do |description|
   page.should have_selector('.activity', :text => description)
 end
 
-Then /^I should see a button to start the counter$/ do
+Then /^I should see a button to start the timer$/ do
   page.should have_selector(
     '#start_timer[value="Start"][type="button"]'
   )
