@@ -12,12 +12,12 @@ describe "activities/new" do
       render
     end
 
-    it 'should have a div with id counter' do
-      rendered.should have_selector('#counter')
+    it 'should have a div with id timer' do
+      rendered.should have_selector('#timer')
     end
 
-    it 'should have the counter with content 25:00' do
-      rendered.should have_selector('#counter', :text => '25:00')
+    it 'should have the timer with content 25:00' do
+      rendered.should have_selector('#timer', :text => '25:00')
     end
 
     it 'should have a form for @activity' do
