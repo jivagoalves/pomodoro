@@ -32,3 +32,11 @@ Then /^I should see a button to start the timer$/ do
     '#start_timer[value="Start"][type="button"]'
   )
 end
+
+When /^I click on the start button$/ do
+  click_on('start_timer')
+end
+
+Given /^I \w*\s*see a timer with "([^"]*)"$/ do |time|
+  find(:xpath, "//div[@id='timer'][contains(.,'#{time}')]")
+end

@@ -10,6 +10,13 @@ Feature: Pomodoro Timer
     And I should see a timer
     And I should see a button to start the timer
 
+  @javascript
+  Scenario: User starts pomodoro timer
+    Given I am on the home page
+    And I see a timer with "25:00"
+    When I click on the start button
+    Then I should see a timer with "24:59"
+
   Scenario Outline: User adds an activity
     Given I am on the home page
     When I fill in the text field with <activity>
