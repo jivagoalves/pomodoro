@@ -42,10 +42,10 @@ Given /^I \w*\s*see a timer with "([^"]*)"$/ do |time|
 end
 
 Given /^I've clicked on the start button$/ do
-  Given "I click on the start button"
+  step "I click on the start button"
 end
 
 When /^I click on the stop button at "([^"]*)"$/ do |time|
-  Given %Q{I see a timer with "#{time}"}
-  When "I click on the start button"
+  step %Q{I see a timer with "#{time}"}
+  step "I click on the start button"
 end
