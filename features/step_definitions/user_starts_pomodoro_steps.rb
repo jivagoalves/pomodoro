@@ -27,9 +27,9 @@ Then /^I should see Activity (\d+)$/ do |description|
   page.should have_selector('.activity', :text => description)
 end
 
-Then /^I should see a button to start the timer$/ do
+Then /^I should see a button to (start|stop) the timer$/ do |action|
   page.should have_selector(
-    '#start_timer[value="Start"][type="button"]'
+    "#start_timer[value='#{action.capitalize}'][type='button']"
   )
 end
 
@@ -39,4 +39,13 @@ end
 
 Given /^I \w*\s*see a timer with "([^"]*)"$/ do |time|
   find(:xpath, "//div[@id='timer'][contains(.,'#{time}')]")
+end
+
+Given /^I've clicked on the start button$/ do
+  Given "I click on the start button"
+end
+
+When /^I click on the stop button at "([^"]*)"$/ do |time|
+  Given %Q{I see a timer with "#{time}"}
+  When "I click on the start button"
 end

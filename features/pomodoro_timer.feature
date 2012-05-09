@@ -16,6 +16,15 @@ Feature: Pomodoro Timer
     And I see a timer with "25:00"
     When I click on the start button
     Then I should see a timer with "24:59"
+    And I should see a button to stop the timer
+
+  @javascript
+  Scenario: User stops pomodoro timer
+    Given I am on the home page
+    And I've clicked on the start button
+    When I click on the stop button at "24:58"
+    Then I should see a button to start the timer
+    And I should see a timer with "24:58"
 
   Scenario Outline: User adds an activity
     Given I am on the home page
