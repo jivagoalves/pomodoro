@@ -23,6 +23,26 @@ describe Activity do
     end
   end
 
+  describe '#all' do
+    before :each do
+      Activity.all.each {|act| act.destroy}
+      @activities = [
+        '2011-05-11',
+        '2011-12-11',
+        '2012-05-11'
+      ].map do |date|
+        act = Activity.new
+        act.created_at = date
+        act.save!
+        act
+      end
+    end
+
+    it 'should order by creation date' do
+      Activity.all.should == @activities.reverse
+    end
+  end
+
   context 'on loading an activity from the database' do
     before :each do
       activity.description = "my description"
