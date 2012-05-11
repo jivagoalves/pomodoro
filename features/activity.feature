@@ -16,3 +16,14 @@ Feature: Activities
     Given I am on the home page
     When I click on the field to add an activity
     Then I should see the field to add an activity with no message
+
+  Scenario Outline: User adds an activity
+    Given I am on the home page
+    When I fill in the text field with <activity>
+    And I press the key enter
+    Then I should see <activity>
+
+    Scenarios:
+      |activity  |
+      |Activity 1|
+      |Activity 2|
