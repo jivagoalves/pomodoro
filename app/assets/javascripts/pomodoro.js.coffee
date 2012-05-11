@@ -11,5 +11,8 @@ window.App =
       $('#timer').pauseTimer()
       $(this).attr('value','Start')
 
+    $('#activity_description').focus ->
+      $(this).attr('value','')
+
 $(document).ready ->
   App.init()

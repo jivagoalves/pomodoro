@@ -4,7 +4,7 @@
 
 #add_activity
   = form_for(@activity) do |f|
-    =f.text_field :description
+    =f.text_field :description, :value => "Create your awesome activity here..."
     =f.submit :id => 'save_activity'
 
 - @activities.each do |activity|
