@@ -27,3 +27,16 @@ Feature: Activities
       |activity  |
       |Activity 1|
       |Activity 2|
+
+  Scenario: User sees most recent activities first
+    Given I have the following activities:
+      |description            |creation   |
+      |I'm the oldest one     |2011-05-15 |
+      |Finish basic features  |2012-05-10 |
+      |Test everything        |2012-05-11 |
+    When I go to the home page
+    Then I should see the activities ordered as follows:
+      |activity             |
+      |Test everything      |
+      |Finish basic features|
+      |I'm the oldest one   |
