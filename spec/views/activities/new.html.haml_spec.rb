@@ -12,8 +12,12 @@ describe "activities/new" do
       render
     end
 
-    it 'should have a div with id timer' do
-      rendered.should have_selector('#timer')
+    it 'should have an area for timer' do
+      rendered.should have_selector('#timer-area')
+    end
+
+    it 'should have a span with id timer' do
+      rendered.should have_selector('#timer-area p span#timer')
     end
 
     it 'should have the timer with content 25:00' do
@@ -27,16 +31,25 @@ describe "activities/new" do
       render
     end
 
+    it 'should have an area for activity' do
+      rendered.should have_selector('#activity-area')
+    end
+
     it 'should have a form for @activity' do
-      rendered.should have_selector('form',
+      rendered.should have_selector('#activity-area form',
                                     :method => 'post',
                                     :action => activities_path)
     end
 
-    it 'should have a field text for description' do
-      rendered.should have_selector(
-        'form input[type="text"][name="activity[description]"]'
-      )
+    it 'should have a text field for description' do
+      rendered.should have_selector('#new_activity p input' +
+                                    '[type="text"]' +
+                                    '[name="activity[description]"]')
+    end
+
+    it 'should have a submit button to add activities' do
+      rendered.should have_selector('#new_activity input' +
+                                    '[type="submit"]')
     end
   end
 
@@ -44,7 +57,7 @@ describe "activities/new" do
     let(:activities) do
       (0..3).each.inject([]) do |ary, n|
         ary << FactoryGirl.create(:activity,
-                                   :description => "description #{n}")
+                                  :description => "description #{n}")
       end
     end
 

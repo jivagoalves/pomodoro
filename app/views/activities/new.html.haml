@@ -1,13 +1,17 @@
-#timer= '25:00'
+#timer-area
+  %p
+    %span#timer= '25:00'
+    %input#start_timer{ :type => 'button', :value => 'Start' }
 
-%input#start_timer{ :type => 'button', :value => 'Start' }
+#activity-area
+  #add_activity
+    = form_for(@activity) do |f|
+      %p
+        =f.text_field :description,
+                      :value => "Create your awesome activity here..."
+        =f.submit :id => 'save_activity'
 
-#add_activity
-  = form_for(@activity) do |f|
-    =f.text_field :description, :value => "Create your awesome activity here..."
-    =f.submit :id => 'save_activity'
-
-%ol.activity-list
-  - @activities.each do |activity|
-    %li
-      .activity= activity.description
+  %ol.activity-list
+    - @activities.each do |activity|
+      %li
+        %span.activity= activity.description
