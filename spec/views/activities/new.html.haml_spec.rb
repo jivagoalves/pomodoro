@@ -55,16 +55,15 @@ describe "activities/new" do
 
     it 'should render all exiting activities' do
       activities.each do |activity|
-        rendered.should have_selector(
-          '.activity', :text => activity.description
-        )
+        rendered.should have_selector('.activity',
+                                      :text => activity.description)
       end
     end
 
     it 'should have a list of activities intentionally ordered' do
       activities.each do |activity|
-        rendered.should have_selector 'ol.activity-list li',
-                                      :text => activity.description
+        rendered.should have_selector('ol.activity-list li',
+                                      :text => activity.description)
       end
     end
   end
