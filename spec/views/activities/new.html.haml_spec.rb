@@ -6,7 +6,7 @@ describe "activities/new" do
     assign(:activities, [])
   end
 
-  context 'in order to add new activities' do
+  context 'in order to focus on activities' do
     before :each do
       assign(:activity, mock_model('Activity').as_new_record)
       render
@@ -18,6 +18,13 @@ describe "activities/new" do
 
     it 'should have the timer with content 25:00' do
       rendered.should have_selector('#timer', :text => '25:00')
+    end
+  end
+
+  context 'in order to add new activities' do
+    before :each do
+      assign(:activity, mock_model('Activity').as_new_record)
+      render
     end
 
     it 'should have a form for @activity' do
