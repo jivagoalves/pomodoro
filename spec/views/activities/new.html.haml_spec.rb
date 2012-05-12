@@ -60,5 +60,12 @@ describe "activities/new" do
         )
       end
     end
+
+    it 'should have a list of activities intentionally ordered' do
+      activities.each do |activity|
+        rendered.should have_selector 'ol.activity-list li',
+                                      :text => activity.description
+      end
+    end
   end
 end

@@ -7,5 +7,7 @@
     =f.text_field :description, :value => "Create your awesome activity here..."
     =f.submit :id => 'save_activity'
 
-- @activities.each do |activity|
-  .activity= activity.description
+%ol.activity-list
+  - @activities.each do |activity|
+    %li
+      .activity= activity.description
