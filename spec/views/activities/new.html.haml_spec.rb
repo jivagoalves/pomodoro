@@ -80,4 +80,14 @@ describe "activities/new" do
       end
     end
   end
+
+  context 'in order to warn a pomodoro has finished' do
+    before :each do
+      render
+    end
+
+    it 'should have an alarm' do
+      rendered.should have_selector('#alarm-area audio')
+    end
+  end
 end
