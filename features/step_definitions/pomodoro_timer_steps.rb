@@ -38,7 +38,7 @@ When /^I click on the start button$/ do
 end
 
 Given /^I \w*\s*see a timer with "([^"]*)"$/ do |time|
-  find(:xpath, "//div[@id='timer'][contains(.,'#{time}')]")
+  find(:xpath, "//span[@id='timer'][contains(.,'#{time}')]")
 end
 
 Given /^I've clicked on the start button$/ do
