@@ -1,4 +1,4 @@
-describe 'activities', ->
+describe 'App.init()', ->
 
   it 'should create the timer after loading the page', ->
     @stub $.fn, 'createTimer'
@@ -16,10 +16,10 @@ describe 'activities', ->
       @stub $.fn, 'startTimer'
       App.init()
 
-    it 'should initialize the timer with 25:00', ->
+    it 'should be initialized with 25:00', ->
       expect($('#timer').text()).toBe('25:00')
 
-    it 'should not start the timer', ->
+    it 'should not be started', ->
       expect($.fn.startTimer).not.toHaveBeenCalled()
 
   describe 'when clicking on start button', ->
