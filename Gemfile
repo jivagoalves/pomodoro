@@ -38,11 +38,15 @@ gem 'jquery-rails'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :test, :development do
-  gem 'cucumber-rails'
-  gem 'rspec-rails'
   gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'cucumber-rails', require: false
+  gem 'rspec-rails'
   gem 'jasmine'
   gem 'jasminerice'
+  gem 'database_cleaner'
 end
 
 gem 'haml-rails'
