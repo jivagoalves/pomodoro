@@ -40,8 +40,25 @@ describe 'App.init()', ->
       @stub(@snd, 'play').andCallFake(->)
       @stub(buzz, 'sound').andReturn(@snd)
       @stub($.fn, 'startTimer').andCallThrough()
-    it 'should play the sound', ->
       App.init()
+
+    it 'should play the sound', ->
       $('#start_timer').trigger 'click'
       $.fn.startTimer.mostRecentCall.args[0].buzzer()
       expect(@snd.play).toHaveBeenCalled()
+
+    it 'should reset the timer', ->
+      @stub $.fn, 'resetTimer'
+      $('#start_timer').trigger 'click'
+      $.fn.startTimer.mostRecentCall.args[0].buzzer()
+      expect($.fn.resetTimer).toHaveBeenCalled()
+
+    it 'should change the button text to "Start"', ->
+      $('#start_timer').trigger 'click'
+      $.fn.startTimer.mostRecentCall.args[0].buzzer()
+      expect($('#start_timer').attr('value')).toBe('Start')
+
+    it 'should recreate the timer', ->
+      $('#start_timer').trigger 'click'
+      $.fn.startTimer.mostRecentCall.args[0].buzzer()
+      expect($('#timer').text()).toBe('25:00')
