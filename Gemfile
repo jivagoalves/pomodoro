@@ -47,6 +47,7 @@ group :test do
   gem 'jasmine'
   gem 'jasminerice'
   gem 'database_cleaner'
+  gem 'shoulda-matchers'
 end
 
 group :development do
