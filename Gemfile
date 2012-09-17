@@ -49,4 +49,10 @@ group :test do
   gem 'database_cleaner'
 end
 
+group :development do
+  gem 'spin'
+  gem 'kicker'
+  gem 'hpricot'
+end
+
 gem 'haml-rails'
