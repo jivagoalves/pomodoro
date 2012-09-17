@@ -12,4 +12,9 @@ class ActivitiesController < ApplicationController
       render 'new'
     end
   end
+
+  def destroy
+    Activity.find(params[:id]).destroy
+    redirect_to root_path
+  end
 end

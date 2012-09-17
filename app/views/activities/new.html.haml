@@ -1,7 +1,6 @@
 #timer-area
   %p
     %span#timer= '25:00'
-    %input#start_timer{ :type => 'button', :value => 'Start' }
 
 #activity-area
   #add_activity
@@ -15,6 +14,12 @@
     - @activities.each do |activity|
       %li
         %span.activity= activity.description
+        %a.start{ href: '#' }
+          Start
+        %a.stop{ href: '#' }
+          Stop
+        |
+        = link_to "Delete", activity_path(activity), method: :delete, confirm: 'Are you sure?'
 
 #alarm-area
   %audio
