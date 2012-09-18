@@ -12,6 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree ./lib
+//= require jquery.the_final_countdown
+//= require buzz
+//
+//= require underscore
+//= require backbone
+//= require backbone_rails_sync
+//= require backbone_datalink
+//= require backbone/pomodoro
+//
 //= require pomodoro
 //= require_tree .
