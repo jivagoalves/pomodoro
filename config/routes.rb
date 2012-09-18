@@ -1,6 +1,9 @@
 Pomodoro::Application.routes.draw do
-  resources :activities
+  resources :activities do
+    resources :spent_times
+  end
   root :to => 'activities#new'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
