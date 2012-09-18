@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Activity do
   it { should_not be_done }
   its(:description) { should == "" }
+  it { should have_many(:spent_times).dependent(:destroy) }
 
   describe "default scope" do
     before do
