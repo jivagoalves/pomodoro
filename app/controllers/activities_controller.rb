@@ -1,4 +1,10 @@
 class ActivitiesController < ApplicationController
+  respond_to :html, :json
+
+  def index
+    respond_with(@activities = Activity.all)
+  end
+
   def new
     @activity = Activity.new
     @activities = Activity.all
@@ -7,9 +13,9 @@ class ActivitiesController < ApplicationController
   def create
     activity = Activity.new(params[:activity])
     if activity.save
-      redirect_to new_activity_path
+      respond_with activity
     else
-      render 'new'
+      respond_with activity, status: :unprocessable_entity
     end
   end
 

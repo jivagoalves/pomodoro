@@ -58,3 +58,8 @@ end
 
 gem 'haml-rails'
 gem 'rails-backbone'
+
+group :assets do
+  gem 'haml_coffee_assets'
+  gem 'execjs'
+end
