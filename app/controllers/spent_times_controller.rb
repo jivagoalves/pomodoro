@@ -1,10 +1,19 @@
 class SpentTimesController < ApplicationController
-  respond_to :json
+  respond_to :html, :json
+
+  def index
+    respond_with(
+      SpentTime.find_all_by_activity_id(params[:activity_id])
+    )
+  end
 
   def create
-    time = SpentTime.find_or_initialize_by_activity_id_and_created_at(params[:activity_id], Date.today) do |st|
-      st.save
+    activity = Activity.find(params[:activity_id])
+    spent_time = SpentTime.new(params[:spent_time])
+    if spent_time.save
+      respond_with activity, spent_time
+    else
+      respond_with activity, spent_time, status: :unprocessable_entity
     end
-    respond_with time, location: activity_spent_times_url
   end
 end
