@@ -9,11 +9,8 @@ class SpentTimesController < ApplicationController
 
   def create
     spent_time = SpentTime.new(params[:spent_time])
-    if spent_time.save
-      respond_with @activity, spent_time
-    else
-      respond_with @activity, spent_time, status: :unprocessable_entity
-    end
+    spent_time.save
+    respond_with @activity, spent_time
   end
 
   private

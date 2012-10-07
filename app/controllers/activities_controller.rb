@@ -13,11 +13,8 @@ class ActivitiesController < ApplicationController
 
   def create
     activity = Activity.new(params[:activity])
-    if activity.save
-      respond_with activity
-    else
-      respond_with activity, status: :unprocessable_entity
-    end
+    activity.save
+    respond_with activity
   end
 
   def destroy
