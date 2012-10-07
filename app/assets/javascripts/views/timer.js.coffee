@@ -1,4 +1,4 @@
-class Pomodoro.Views.TimerView extends Backbone.View
+class Pomodoro.Views.Timer extends Backbone.View
   el: '#timer'
 
   defaultOptions: ->

@@ -1,4 +1,4 @@
-class Pomodoro.Views.ActivityView extends Backbone.View
+class Pomodoro.Views.Activity extends Backbone.View
   initialize: ->
     @timerView = @options.timerView
     @timerNotificationView = @options.timerNotificationView

@@ -1,4 +1,4 @@
-class Pomodoro.Views.FormView extends Backbone.View
+class Pomodoro.Views.Form extends Backbone.View
   el: '#activity-area form'
 
   defaultInputText: 'Create your awesome activity here...'

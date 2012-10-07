@@ -1,4 +1,4 @@
-class Pomodoro.Views.ActivitiesView extends Backbone.View
+class Pomodoro.Views.Activities extends Backbone.View
   el: '#activities'
 
   initialize: () ->
@@ -23,12 +23,12 @@ class Pomodoro.Views.ActivitiesView extends Backbone.View
     spentTimes: @options.spentTimes
 
   appendOne: (activity) =>
-    this.$el.append new Pomodoro.Views.ActivityView(
+    this.$el.append new Pomodoro.Views.Activity(
       _.extend { model: activity }, @activityAttributes()
     ).render().el
 
   prependOne: (activity) =>
-    this.$el.prepend(new Pomodoro.Views.ActivityView(
+    this.$el.prepend(new Pomodoro.Views.Activity(
       _.extend { model: activity }, @activityAttributes()
     ).render(timer: { isStarted: false, isPaused: false }).el)
 

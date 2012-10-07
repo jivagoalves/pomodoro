@@ -1,4 +1,4 @@
-class Pomodoro.Views.TimerNotificationView extends Backbone.View
+class Pomodoro.Views.TimerNotification extends Backbone.View
   el: '#notification'
 
   template: JST['notification']

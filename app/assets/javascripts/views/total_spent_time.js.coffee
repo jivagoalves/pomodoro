@@ -1,4 +1,4 @@
-class Pomodoro.Views.TotalSpentTimeView extends Backbone.View
+class Pomodoro.Views.TotalSpentTime extends Backbone.View
   el: '#total-spent-time'
 
   initialize: ->

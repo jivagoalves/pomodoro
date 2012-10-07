@@ -28,7 +28,7 @@
 - content_for :javascript do
   :javascript
     $(function() {
-      window.router = new Pomodoro.Routers.ActivitiesRouter({
+      window.router = new Pomodoro.Routers.Activities({
         activities: #{@activities.to_json.html_safe},
         spentTimes: #{@spent_times.to_json.html_safe}
       });
