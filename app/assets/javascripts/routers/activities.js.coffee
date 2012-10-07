@@ -1,6 +1,6 @@
 class Pomodoro.Routers.Activities extends Backbone.Router
   initialize: (options) ->
-    @activities = new Pomodoro.Collections.ActivitiesCollection()
+    @activities = new Pomodoro.Collections.Activities()
     @activities.reset options.activities
     @spentTimes = new Pomodoro.Collections.TotalSpentTimes()
     @spentTimes.reset options.spentTimes
