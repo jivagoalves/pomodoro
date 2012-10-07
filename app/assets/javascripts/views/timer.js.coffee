@@ -7,9 +7,11 @@ class Pomodoro.Views.Timer extends Backbone.View
     tick: (timer, currentTime, formattedTime) =>
       @trigger('running')
     buzzer: (timer) =>
+      @alarm.play()
       @resetTimerGracefully()
 
   initialize: ->
+    @alarm = new buzz.sound('/alarm.wav')
     @options = _.extend @defaultOptions(), @options
     @createTimer()
 
