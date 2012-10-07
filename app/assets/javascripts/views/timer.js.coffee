@@ -55,3 +55,7 @@ class Pomodoro.Views.Timer extends Backbone.View
 
   isReady: ->
     this.$el.data('countdown.state') == 'ready'
+
+  render: ->
+    this.$el.hide().fadeIn(1000)
+    this
