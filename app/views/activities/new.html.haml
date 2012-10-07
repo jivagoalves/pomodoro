@@ -13,10 +13,11 @@
 #total-spent-time
 
 #activity-area
-  = form_for(@activity) do |f|
+  %form#new-activity
     %p
-      =f.text_field :description
-      =f.submit id: 'save_activity', value: 'Add'
+      %input#activity-description{ type: 'text', size: '30' }
+    %p
+      %input{ type: 'submit', value: 'Add' }
 
   %ol#activities
 

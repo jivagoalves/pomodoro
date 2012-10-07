@@ -18,8 +18,9 @@ class Pomodoro.Views.TotalSpentTime extends Backbone.View
   fetchTotalSpentTime: ->
     @collection.fetch
       success: =>
+        oldTotalSpentTime = @totalSpentTime
         @sumSpentTime()
-        @render()
+        @render() if oldTotalSpentTime != @totalSpentTime
 
   formatTime: (time)->
     t = parseInt(time)

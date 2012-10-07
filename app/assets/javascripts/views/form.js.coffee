@@ -1,12 +1,12 @@
 class Pomodoro.Views.Form extends Backbone.View
-  el: '#activity-area form'
+  el: '#new-activity'
 
   defaultInputText: 'Create your awesome activity here...'
 
   events:
     'focus input[type=text]'    : 'updateFocusDescription'
     'focusout input[type=text]' : 'updateUnfocusDescription'
-    'submit'                    : 'submit'
+    'submit'                    : 'saveActivity'
 
   initialize: ->
     this.$input = this.$('input[type=text]')
@@ -24,20 +24,34 @@ class Pomodoro.Views.Form extends Backbone.View
   setDefaultText: ->
     @setDescription(@defaultInputText)
 
+  descriptionPresent: ->
+    !@hasDefaultInputText() && !@isBlank()
+
+  destroyFieldError: ->
+    @fieldErrorView.destroy() if @fieldErrorView
+
+  renderFieldError: (error)->
+    @destroyFieldError()
+    @fieldErrorView = new Pomodoro.Views.FieldError(
+      field: this.$('#activity-description')
+      error: error
+    ).render()
+
   saveActivity: ->
-    self = this
+    unless @descriptionPresent()
+      @renderFieldError("Can't be blank")
+      return false
     new Pomodoro.Models.Activity().save {
       description: @getDescription()
     },{
-      success: (model, response) ->
-        self.collection.add(model)
-        self.clearDescription()
-      error: (model, response) ->
-        alert('Sorry, something went wrong.')
+      success: (model, response) =>
+        @collection.add(model)
+        @clearDescription()
+        @setDefaultText() unless @descriptionHasFocus()
+        @destroyFieldError()
+      error: (model, response) =>
+        @renderFieldError('Sorry, something went wrong.')
     }
-
-  submit: ->
-    @saveActivity()
     false
 
   hasDefaultInputText: ->
@@ -51,3 +65,6 @@ class Pomodoro.Views.Form extends Backbone.View
 
   updateUnfocusDescription: ->
     @setDefaultText() if @isBlank()
+
+  descriptionHasFocus: ->
+    this.$('input[type=text]').is(':focus')
