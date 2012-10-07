@@ -3,6 +3,15 @@
     %span#timer
     %span#notification
 
+  %p#commands
+    %a#pomodoro{ href: '#' } Pomodoro
+    |
+    %a#long-break{ href: '#' } Long Break
+    |
+    %a#short-break{ href: '#' } Short Break
+
+#total-spent-time
+
 #activity-area
   = form_for(@activity) do |f|
     %p
@@ -19,6 +28,9 @@
 - content_for :javascript do
   :javascript
     $(function() {
-      window.router = new Pomodoro.Routers.ActivitiesRouter({activities: #{@activities.to_json.html_safe}});
+      window.router = new Pomodoro.Routers.ActivitiesRouter({
+        activities: #{@activities.to_json.html_safe},
+        spentTimes: #{@spent_times.to_json.html_safe}
+      });
       Backbone.history.start();
     });

@@ -3,11 +3,13 @@ class SpentTime < ActiveRecord::Base
 
   belongs_to :activity
 
+  validates_presence_of :activity
+
+  scope :updated_today, lambda { where('updated_at > ?', Date.today) }
+
   after_initialize do |st|
     st.time ||= 0
   end
-
-  validates_presence_of :activity
 
   def add_pomodoro
     self.time ||= 0

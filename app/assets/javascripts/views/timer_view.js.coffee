@@ -26,20 +26,20 @@ class Pomodoro.Views.TimerView extends Backbone.View
   spentTime: ->
     @totalTime() - @remainingTime()
 
-  createTimer: ->
-    this.$el.createTimer @options
+  createTimer: (options)->
+    this.$el.createTimer _.extend(@options, options)
     @trigger('ready')
 
-  startTimer: ->
-    this.$el.startTimer @options
+  startTimer: (options = {})->
+    this.$el.startTimer _.extend(@options, options)
     @trigger('ready')
 
   pauseTimer: ->
     this.$el.pauseTimer()
     @trigger('paused')
 
-  resetTimer: ->
-    this.$el.resetTimer @options
+  resetTimer: (options = {})->
+    this.$el.resetTimer _.extend(@options, options)
     @trigger('ready')
 
   resetTimerGracefully: ->

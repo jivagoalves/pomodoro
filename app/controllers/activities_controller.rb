@@ -8,6 +8,7 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
     @activities = Activity.all
+    @spent_times = SpentTime.updated_today
   end
 
   def create

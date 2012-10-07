@@ -2,6 +2,7 @@ class Pomodoro.Views.ActivityView extends Backbone.View
   initialize: ->
     @timerView = @options.timerView
     @timerNotificationView = @options.timerNotificationView
+    @spentTimes = @options.spentTimes
 
   template: JST['activity']
 
@@ -25,11 +26,9 @@ class Pomodoro.Views.ActivityView extends Backbone.View
     false
 
   canProceed: ->
-    msg = 'Current one is going to be stopped. Are you sure?'
-    unless @timerView.isReady()
-      unless confirm(msg)
-        return false
-    true
+    return true if @timerView.isReady()
+    msg = "Timer's going to restart. Are you sure?"
+    confirm(msg) ? true : false
 
   bindEvents: ->
     @timerView.on('ready paused', @updateControl, @)
@@ -38,6 +37,7 @@ class Pomodoro.Views.ActivityView extends Backbone.View
   startTimerOnReady: ->
     start = =>
       @timerView.off('ready', start, @)
+      @timerView.resetTimer(time_in_seconds: 25 * 60)
       @bindEvents()
       @timerView.startTimer()
     @timerView.on('ready', start, @)
@@ -45,6 +45,7 @@ class Pomodoro.Views.ActivityView extends Backbone.View
   startTimer: ->
     return unless @canProceed()
     if @timerView.isReady()
+      @timerView.resetTimer(time_in_seconds: 25 * 60)
       @bindEvents()
       @timerView.startTimer()
     else
@@ -62,8 +63,9 @@ class Pomodoro.Views.ActivityView extends Backbone.View
       activity_id: @model.id
       time: @timerView.spentTime()
     }, {
-      success: =>
+      success: (model, response)=>
         @timerNotificationView.renderMessage('Saved!')
+        @spentTimes.add(model)
       error: =>
         @timerNotificationView.renderMessage('Something went wrong!')
     }

@@ -4,8 +4,8 @@ class Pomodoro.Views.ActivitiesView extends Backbone.View
   initialize: () ->
     @collection.bind('reset', @reset)
     @collection.on('add', @prependOne)
-    @timerView = new Pomodoro.Views.TimerView()
-    @timerNotificationView = new Pomodoro.Views.TimerNotificationView()
+    @timerView = @options.timerView
+    @timerNotificationView = @options.timerNotificationView
 
   reset: =>
     @removeAll()
@@ -20,6 +20,7 @@ class Pomodoro.Views.ActivitiesView extends Backbone.View
   activityAttributes: ->
     timerView: @timerView
     timerNotificationView: @timerNotificationView
+    spentTimes: @options.spentTimes
 
   appendOne: (activity) =>
     this.$el.append new Pomodoro.Views.ActivityView(
