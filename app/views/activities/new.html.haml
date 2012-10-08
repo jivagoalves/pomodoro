@@ -1,18 +1,20 @@
-#timer-area
+%section
   %p
-    %span#timer
-    %span#notification
+    Today you've spent:
+    %span#total-spent-time
 
+%section#timer-area
   %p#commands
     %a#pomodoro{ href: '#' } Pomodoro
     |
     %a#long-break{ href: '#' } Long Break
     |
     %a#short-break{ href: '#' } Short Break
+  %p
+    %span#timer
+    %span#notification
 
-#total-spent-time
-
-#activity-area
+%section#activity-area
   %form#new-activity
     %p
       %input#activity-description{ type: 'text', size: '30' }
@@ -20,8 +22,6 @@
       %input{ type: 'submit', value: 'Add' }
 
   %ol#activities
-
-#activities
 
 - content_for :javascript do
   :javascript
