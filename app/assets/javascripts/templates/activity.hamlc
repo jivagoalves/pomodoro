@@ -10,3 +10,5 @@
 |
 
 %a.destroy{ :href => "#" } Delete
+
+= "(#{@spentTime} today)"

@@ -7,6 +7,7 @@
 
 window.Pomodoro =
   Models: {}
-  Collections: {}
+  Collections:
+    Mixins: {}
   Routers: {}
   Views: {}

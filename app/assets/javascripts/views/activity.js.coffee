@@ -66,8 +66,14 @@ class Pomodoro.Views.Activity extends Backbone.View
       success: (model, response)=>
         @timerNotificationView.renderMessage('Saved!')
         @spentTimes.add(model)
+        @render
+          timer:
+            isStarted: false
       error: =>
         @timerNotificationView.renderMessage('Something went wrong!')
+        @render
+          timer:
+            isStarted: false
     }
     @timerView.resetTimer()
 
@@ -75,7 +81,8 @@ class Pomodoro.Views.Activity extends Backbone.View
     if @timerView.isReady()
       @timerView.off('ready paused', @updateControl, @)
       @timerView.off('reset', @saveSpentTime, @)
-    @render()
+    else
+      @render()
 
   render: (options = {})->
     @setHtml(options)
@@ -89,5 +96,24 @@ class Pomodoro.Views.Activity extends Backbone.View
         timer:
           isStarted: @timerView.isRunning()
           isPaused: @timerView.isPaused()
+        spentTime: @formatTime(@getSpentTimeForToday())
       }, options
     )
+
+  getSpentTimeForToday: ->
+    iterator = (totalTime, spentTime)->
+      spentTime.get('time') + totalTime
+    @spentTimes.
+      findByActivity(@model).
+      reduce(iterator, 0)
+
+  # TODO: Extract mixin out
+  formatTime: (time)->
+    t = parseInt(time)
+    hours   = Math.floor(t / 3600)
+    minutes = Math.floor((t - (hours * 3600)) / 60)
+    seconds = t - (hours * 3600) - (minutes * 60)
+    hours = '0' + hours if (hours < 10)
+    minutes = '0' + minutes if (minutes < 10)
+    seconds = '0' + seconds if (seconds < 10)
+    "#{hours}h #{minutes}m #{seconds}s"
