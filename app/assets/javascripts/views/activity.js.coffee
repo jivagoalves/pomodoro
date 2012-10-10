@@ -108,4 +108,4 @@ class Pomodoro.Views.Activity extends Backbone.View
       reduce(iterator, 0)
 
   formatTime: (time)->
-    new Pomodoro.Utils.Time(time).toHHMMSS()
+    new Pomodoro.Utils.Time(time).toHMS()

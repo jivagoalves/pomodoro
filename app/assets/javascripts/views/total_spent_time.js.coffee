@@ -23,7 +23,7 @@ class Pomodoro.Views.TotalSpentTime extends Backbone.View
         @render() if oldTotalSpentTime != @totalSpentTime
 
   formatTime: (time)->
-    new Pomodoro.Utils.Time(time).toHHMMSS()
+    new Pomodoro.Utils.Time(time).toHMS()
 
   render: ->
     this.$el.html(@formatTime(@totalSpentTime))

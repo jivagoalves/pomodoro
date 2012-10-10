@@ -1,12 +1,14 @@
 class Pomodoro.Utils.Time
   constructor: (@time)->
 
-  toHHMMSS: ->
-    t = parseInt(@time)
-    hours   = Math.floor(t / 3600)
-    minutes = Math.floor((t - (hours * 3600)) / 60)
-    seconds = t - (hours * 3600) - (minutes * 60)
-    hours = '0' + hours if (hours < 10)
-    minutes = '0' + minutes if (minutes < 10)
-    seconds = '0' + seconds if (seconds < 10)
-    "#{hours}h #{minutes}m #{seconds}s"
+  toHMS: ->
+    time = parseInt(@time)
+    hours   = Math.floor(time / 3600)
+    minutes = Math.floor((time - (hours * 3600)) / 60)
+    seconds = time - (hours * 3600) - (minutes * 60)
+    to_return = []
+    to_return.push("#{hours}h") if hours > 0
+    to_return.push("#{minutes}m") if minutes > 0
+    to_return.push("#{seconds}s") if seconds > 0
+    return '0s' if to_return.length == 0
+    to_return.join(' ')
