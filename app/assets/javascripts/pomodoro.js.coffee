@@ -1,4 +1,5 @@
 #= require_self
+#= require_tree ./utils
 #= require_tree ./templates
 #= require_tree ./models
 #= require_tree ./collections
@@ -7,7 +8,7 @@
 
 window.Pomodoro =
   Models: {}
-  Collections:
-    Mixins: {}
+  Collections: {}
   Routers: {}
   Views: {}
+  Utils: {}
