@@ -8,9 +8,10 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   events:
     'click .destroy' : 'destroy'
-    'click .start' : 'startTimer'
-    'click .pause' : 'pauseTimer'
-    'click .resume' : 'resumeTimer'
+    'click .start'   : 'startTimer'
+    'click .pause'   : 'pauseTimer'
+    'click .resume'  : 'resumeTimer'
+    'click .stop'    : 'stopTimer'
 
   tagName: 'li'
 
@@ -57,6 +58,9 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   resumeTimer: ->
     @timerView.startTimer()
+
+  stopTimer: ->
+    @timerView.resetTimerGracefully()
 
   saveSpentTime: =>
     new Pomodoro.Models.SpentTime().save {

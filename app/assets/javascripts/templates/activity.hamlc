@@ -3,10 +3,12 @@
 
 .controls
   - if @timer.isStarted
-    %a.control.pause{ :href => "#" } Pause
+    %a.control.pause{ href: '#' } Pause
   - else if @timer.isPaused
-    %a.control.resume{ :href => "#" } Resume
+    %a.control.resume{ href: '#' } Resume
   - else
-    %a.control.start{ :href => "#" } Start
+    %a.control.start{ href: '#' } Start
   |
-  %a.destroy{ :href => "#" } Delete
+  %a.control.stop{ href: '#' } Stop
+  |
+  %a.destroy{ :href => '#' } Delete
