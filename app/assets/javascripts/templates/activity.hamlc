@@ -1,7 +1,5 @@
 .info
-  %span.description= @model.description
-
-  = "(#{@spentTime} today)"
+  %span.description= @model.description + " (#{@spentTime} today)"
 
 .controls
   - if @timer.isStarted
@@ -10,8 +8,5 @@
     %a.control.resume{ :href => "#" } Resume
   - else
     %a.control.start{ :href => "#" } Start
-
   |
-
   %a.destroy{ :href => "#" } Delete
-

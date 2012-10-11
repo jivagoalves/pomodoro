@@ -14,7 +14,7 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   tagName: 'li'
 
-  class: 'activity'
+  className: 'activity clearfix'
 
   destroy: () ->
     if confirm('Are you sure?')
