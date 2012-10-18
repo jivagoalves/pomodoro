@@ -1,0 +1,11 @@
+- if @timer.isRunning
+  %a.action.pause{ href: '#' } Pause
+- else if @timer.isPaused
+  %a.action.resume{ href: '#' } Resume
+- else
+  %a.action.start{ href: '#' } Start
+- if @timer.isRunning || @timer.isPaused
+  |
+  %a.action.stop{ href: '#' } Stop
+|
+%a.destroy{ :href => '#' } Delete

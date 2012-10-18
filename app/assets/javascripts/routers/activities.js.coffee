@@ -1,22 +1,18 @@
 class Pomodoro.Routers.Activities extends Backbone.Router
   initialize: (options) ->
-    @activities = new Pomodoro.Collections.Activities()
-    @activities.reset options.activities
-    @spentTimes = new Pomodoro.Collections.TotalSpentTimes()
-    @spentTimes.reset options.spentTimes
+    @activities = new Pomodoro.Collections.Activities options.activities
+    @spentTimes = new Pomodoro.Collections.SpentTimes options.spentTimes
 
   routes:
     ".*" : "index"
 
   index: ->
     timerView = new Pomodoro.Views.Timer()
-    timerNotificationView = new Pomodoro.Views.TimerNotification()
 
     new Pomodoro.Views.Activities(
       collection: @activities
       spentTimes: @spentTimes
       timerView: timerView
-      timerNotificationView: timerNotificationView
     ).render()
 
     new Pomodoro.Views.Form
@@ -24,7 +20,6 @@ class Pomodoro.Routers.Activities extends Backbone.Router
 
     new Pomodoro.Views.TotalSpentTime(
       collection: @spentTimes
-      activities: @activities
     ).render()
 
     new Pomodoro.Views.TimerCommands

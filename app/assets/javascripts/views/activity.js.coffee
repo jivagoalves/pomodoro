@@ -1,85 +1,36 @@
 class Pomodoro.Views.Activity extends Backbone.View
-  initialize: ->
-    @timerView = @options.timerView
-    @timerNotificationView = @options.timerNotificationView
-    @spentTimes = @options.spentTimes
-
   template: JST['activity']
 
   events:
-    'click .destroy' : 'destroy'
-    'click .start'   : 'startTimer'
-    'click .pause'   : 'pauseTimer'
-    'click .resume'  : 'resumeTimer'
-    'click .stop'    : 'stopTimer'
+    'click .destroy'          : 'destroy'
+    'click .spent-time-today' : 'toggleSpentTimeList'
 
   tagName: 'li'
 
   className: 'activity clearfix'
 
-  destroy: () ->
+  initialize: ->
+    @setProperties()
+
+  setProperties: ->
+    @timerView = @options.timerView
+    @spentTimesCollection = @options.spentTimes
+
+  destroy: ->
     if confirm('Are you sure?')
-      @model.destroy()
-      @timerView.off('ready paused', @updateControl, @)
-      @timerView.resetTimer()
-      this.$el.fadeOut =>
-        @remove()
+      @model.destroy
+        success: (model, response)=>
+          @spentTimesCollection.removeByActivity(model)
+          @timerView.resetTimer()
+          this.$el.fadeOut =>
+            @remove()
+        error: =>
+          alert('Something went wrong!')
     false
 
-  canProceed: ->
-    return true if @timerView.isReady()
-    msg = "Timer's going to restart. Are you sure?"
-    confirm(msg) ? true : false
-
-  bindEvents: ->
-    @timerView.on('ready paused', @updateControl, @)
-    @timerView.on('reset', @saveSpentTime, @)
-
-  startTimerOnReady: ->
-    start = =>
-      @timerView.off('ready', start, @)
-      @timerView.resetTimer(time_in_seconds: 25 * 60)
-      @bindEvents()
-      @timerView.startTimer()
-    @timerView.on('ready', start, @)
-
-  startTimer: ->
-    return unless @canProceed()
-    if @timerView.isReady()
-      @timerView.resetTimer(time_in_seconds: 25 * 60)
-      @bindEvents()
-      @timerView.startTimer()
-    else
-      @startTimerOnReady()
-      @timerView.resetTimerGracefully()
-
-  pauseTimer: ->
-    @timerView.pauseTimer()
-
-  resumeTimer: ->
-    @timerView.startTimer()
-
-  stopTimer: ->
-    @timerView.resetTimerGracefully()
-
-  saveSpentTime: =>
-    new Pomodoro.Models.SpentTime().save {
-      activity_id: @model.id
-      time: @timerView.spentTime()
-    }, {
-      success: (model, response)=>
-        @timerNotificationView.renderMessage('Saved!')
-        @spentTimes.add(model)
-        @render
-          timer:
-            isStarted: false
-      error: =>
-        @timerNotificationView.renderMessage('Something went wrong!')
-        @render
-          timer:
-            isStarted: false
-    }
-    @timerView.resetTimer()
+  toggleSpentTimeList: ->
+    @spentTimeListView.toggle()
+    false
 
   updateControl: ->
     if @timerView.isReady()
@@ -90,6 +41,10 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   render: (options = {})->
     @setHtml(options)
+    @renderTotalTime()
+    @appendNotification()
+    @renderActions()
+    @appendSpentTimeList()
     this.$el.hide().fadeIn(1000)
     this
 
@@ -97,19 +52,33 @@ class Pomodoro.Views.Activity extends Backbone.View
     this.$el.html @template(
       _.extend {
         model: @model.toJSON()
-        timer:
-          isStarted: @timerView.isRunning()
-          isPaused: @timerView.isPaused()
-        spentTime: @formatTime(@getSpentTimeForToday())
       }, options
     )
 
-  getSpentTimeForToday: ->
-    iterator = (totalTime, spentTime)->
-      spentTime.get('time') + totalTime
-    @spentTimes.
-      findByActivity(@model).
-      reduce(iterator, 0)
+  renderTotalTime: ->
+    new Pomodoro.Views.TotalSpentTime(
+      el: this.$('.spent-time-today')
+      collection: @spentTimesCollection.findByActivity(@model)
+    ).render()
 
-  formatTime: (time)->
-    new Pomodoro.Utils.Time(time).toHMS()
+  renderActions: ->
+    new Pomodoro.Views.ActivityActions(
+      el: this.$('.actions')
+      model: @model
+      timerView: @timerView
+      spentTimesCollection: @spentTimesCollection
+    ).render()
+
+  appendSpentTimeList: ->
+    @spentTimeListView = new Pomodoro.Views.SpentTimeList(
+      collection: @spentTimesCollection.findByActivity(@model)
+    )
+    this.$('.info').append @spentTimeListView.
+      render().
+      hide().
+      el
+
+  appendNotification: ->
+    view = new Pomodoro.Views.Notification
+      collection: @spentTimesCollection.findByActivity(@model)
+    this.$('.info').append(view.render().el)

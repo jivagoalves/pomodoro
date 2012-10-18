@@ -1,15 +1,9 @@
 .info
-  %span.description= @model.description + " (#{@spentTime} today)"
+  %span.description= @model.description
 
-.controls
-  - if @timer.isStarted
-    %a.control.pause{ href: '#' } Pause
-  - else if @timer.isPaused
-    %a.control.resume{ href: '#' } Resume
-  - else
-    %a.control.start{ href: '#' } Start
-  - if @timer.isStarted || @timer.isPaused
-    |
-    %a.control.stop{ href: '#' } Stop
-  |
-  %a.destroy{ :href => '#' } Delete
+  (
+  %a.spent-time-today{ href: '#' }
+  today
+  )
+
+.actions

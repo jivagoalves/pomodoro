@@ -1,8 +1,8 @@
 class Pomodoro.Views.Activities extends Backbone.View
   el: '#activities'
 
-  initialize: () ->
-    @collection.bind('reset', @reset)
+  initialize: ->
+    @collection.on('reset', @reset)
     @collection.on('add', @prependOne)
     @timerView = @options.timerView
     @timerNotificationView = @options.timerNotificationView

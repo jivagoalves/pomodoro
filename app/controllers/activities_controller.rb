@@ -18,7 +18,8 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
-    Activity.find(params[:id]).destroy
-    redirect_to root_path
+    activity = Activity.find(params[:id])
+    activity.destroy
+    respond_with(activity)
   end
 end
