@@ -7,7 +7,7 @@ class Pomodoro.Views.SpentTimeList extends Backbone.View
     @bindEvents()
 
   bindEvents: ->
-    @collection.on 'reset', =>
+    @collection.on 'all', =>
       @render()
 
   removeAll: ->

@@ -6,7 +6,7 @@ class Pomodoro.Views.Notification extends Backbone.View
   message: ''
 
   initialize: ->
-    @collection.on 'reset', =>
+    @collection.on 'add', =>
       @message = '(Saved!)'
       @render()
 

@@ -9,8 +9,12 @@ Pomodoro.Collections.Mixins.Filterable =
         @select(criteriaFunction)
       )
 
+    addModel = (model)->
+      if criteriaFunction(model)
+        filteredCollection.add(model)
+
     @on 'change', applyFilter
-    @on 'add', applyFilter
+    @on 'add', addModel
     @on 'remove', applyFilter
     applyFilter()
 
