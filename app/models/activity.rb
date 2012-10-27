@@ -17,4 +17,11 @@ class Activity < ActiveRecord::Base
       end
     end
   end
+
+  def time_spent_between(start_dt, end_dt)
+    times = spent_times.select do |s|
+      s.updated_at.between?(start_dt, end_dt)
+    end
+    times.map(&:time).reduce(:+)
+  end
 end

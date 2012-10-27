@@ -40,4 +40,23 @@ describe Activity do
       activities.first.spent_times.map(&:time).should include(10)
     end
   end
+
+  describe "#time_spent_between" do
+    let(:activity) { Activity.create! }
+
+    before do
+      3.times do |n|
+        SpentTime.new(time: 10) do |s|
+          s.created_at = s.updated_at = Date.today + n.days
+          s.activity = activity
+          s.save!
+        end
+      end
+    end
+
+    it "returns the time spent between a period of time" do
+      time = activity.time_spent_between(Date.today, Date.today + 2.days)
+      time.should == 20
+    end
+  end
 end
