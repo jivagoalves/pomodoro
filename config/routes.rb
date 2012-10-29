@@ -3,6 +3,7 @@ Pomodoro::Application.routes.draw do
     resources :spent_times
   end
   resources :spent_times
+  resources :reports
   root :to => 'activities#new'
 
 

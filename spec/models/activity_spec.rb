@@ -55,8 +55,30 @@ describe Activity do
     end
 
     it "returns the time spent between a period of time" do
+      time = activity.time_spent_between(Date.today - 1.day, Date.today)
+      time.should == 0
+
       time = activity.time_spent_between(Date.today, Date.today + 2.days)
       time.should == 20
+    end
+  end
+
+  describe "#time_spent_per_day_between" do
+    let(:activity) { Activity.create! }
+
+    before do
+      2.times do |n|
+        SpentTime.new(time: 1 + n) do |s|
+          s.created_at = s.updated_at = Date.today + n.days
+          s.activity = activity
+          s.save!
+        end
+      end
+    end
+
+    it "returns an array of time per day in a period" do
+      times = activity.time_spent_per_day_between(Date.today - 1.day, Date.today + 2.day)
+      times.should == [0,1,2,0]
     end
   end
 end

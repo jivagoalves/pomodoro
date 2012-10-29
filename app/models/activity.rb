@@ -22,6 +22,12 @@ class Activity < ActiveRecord::Base
     times = spent_times.select do |s|
       s.updated_at.between?(start_dt, end_dt)
     end
-    times.map(&:time).reduce(:+)
+    times.empty? ? 0 : times.map(&:time).reduce(:+)
+  end
+
+  def time_spent_per_day_between(start_dt, end_dt)
+    (start_dt..end_dt).map do |day|
+      time_spent_between(day, day + 1.day)
+    end
   end
 end

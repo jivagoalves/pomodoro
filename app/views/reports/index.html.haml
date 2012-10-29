@@ -1,0 +1,26 @@
+= form_for @report, method: :get do |f|
+  %p
+    = f.label :start_date
+    = f.date_select :start_date
+  %p
+    = f.label :end_date
+    = f.date_select :end_date
+  %p
+    = f.submit 'Submit'
+
+%table
+  %thead
+    %tr
+      %th
+        Activity
+      - (@report.start_date..@report.end_date).each do |date|
+        %th
+          = date.strftime('%a')
+  %tbody
+    - @report.each_with_times do |activity, times|
+      %tr
+        %td
+          = activity.description + ' (hh:mm:ss)'
+        - times.each do |time|
+          %td
+            = seconds_in_hh_mm_ss(time)
