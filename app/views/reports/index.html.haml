@@ -12,7 +12,7 @@
   %thead
     %tr
       %th
-        Activity
+        Activity (hh:mm:ss)
       - (@report.start_date..@report.end_date).each do |date|
         %th
           = date.strftime('%a')
@@ -20,7 +20,7 @@
     - @report.each_with_times do |activity, times|
       %tr
         %td
-          = activity.description + ' (hh:mm:ss)'
+          = activity.description
         - times.each do |time|
           %td
             = seconds_in_hh_mm_ss(time)
