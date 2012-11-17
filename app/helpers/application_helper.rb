@@ -1,5 +1,6 @@
 module ApplicationHelper
   def seconds_in_hh_mm_ss(seconds)
+    return "00:00:00" unless seconds.present?
     mm, ss = seconds.divmod(60)
     hh, mm = mm.divmod(60)
     ss = ss < 10 ? "0#{ss}" : ss
