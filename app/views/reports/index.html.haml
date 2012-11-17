@@ -28,6 +28,7 @@
             = seconds_in_hh_mm_ss(time)
         %td
           = seconds_in_hh_mm_ss(times.reduce(:+))
+  %tfoot
     %tr
       %td
       - (@report.start_date..@report.end_date).each do |date|
