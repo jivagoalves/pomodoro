@@ -1,4 +1,4 @@
-= form_for @report, method: :get do |f|
+= form_for @report, url: reports_path, method: :get do |f|
   %p
     = f.label :start_date
     = f.date_select :start_date
@@ -16,6 +16,8 @@
       - (@report.start_date..@report.end_date).each do |date|
         %th
           = date.strftime('%a')
+      %th
+        Total
   %tbody
     - @report.each_with_times do |activity, times|
       %tr
@@ -24,3 +26,11 @@
         - times.each do |time|
           %td
             = seconds_in_hh_mm_ss(time)
+        %td
+          = seconds_in_hh_mm_ss(times.reduce(:+))
+    %tr
+      %td
+      - (@report.start_date..@report.end_date).each do |date|
+        %td
+      %td
+        = seconds_in_hh_mm_ss(@report.map_with_times{|a,times| times.reduce(:+)}.reduce(:+))

@@ -1,4 +1,4 @@
-class Report
+class ActivityReport
   include ActiveModel::Validations
   include ActiveModel::Conversion
 
@@ -19,6 +19,12 @@ class Report
 
   def each_with_times(&block)
     @activities.each do |a|
+      yield(a, @report[a.id])
+    end
+  end
+
+  def map_with_times(&block)
+    @activities.map do |a|
       yield(a, @report[a.id])
     end
   end

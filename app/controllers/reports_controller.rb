@@ -2,6 +2,6 @@ class ReportsController < ApplicationController
   respond_to :html
 
   def index
-    @report = Report.new(params[:report])
+    @report = ActivityReport.new(params[:activity_report])
   end
 end
