@@ -36,9 +36,9 @@ class ActivityReport
   end
 
   def total_spent_time
-    map_with_times do |a,times|
-      times.reduce(:+)
-    end.reduce(:+)
+    TimeDecorator.new(
+      map_with_times{|a,times| times.reduce(:+)}.reduce(:+)
+    )
   end
 
   private
