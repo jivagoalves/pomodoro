@@ -11,7 +11,7 @@ class Activity < ActiveRecord::Base
   end
 
   def self.executed_between(start_dt, end_dt)
-    Activity.all.select do |a|
+    Activity.includes(:spent_times).all.select do |a|
       a.spent_times.any? do |s|
         s.updated_at.between?(start_dt, end_dt)
       end
@@ -20,14 +20,14 @@ class Activity < ActiveRecord::Base
 
   def time_spent_between(start_dt, end_dt)
     times = spent_times.select do |s|
-      s.updated_at.between?(start_dt, end_dt)
+      (start_dt..end_dt).cover?(s.updated_at.to_date)
     end
-    times.empty? ? 0 : times.map(&:time).reduce(:+)
+    time = times.empty? ? 0 : times.map(&:time).reduce(:+)
   end
 
   def time_spent_per_day_between(start_dt, end_dt)
     (start_dt..end_dt).map do |day|
-      time_spent_between(day, day + 1.day)
+      time_spent_between(day, day)
     end
   end
 end

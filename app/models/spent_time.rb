@@ -10,9 +10,4 @@ class SpentTime < ActiveRecord::Base
   after_initialize do |st|
     st.time ||= 0
   end
-
-  def add_pomodoro
-    self.time ||= 0
-    self.time += 1500
-  end
 end

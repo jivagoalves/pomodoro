@@ -7,6 +7,7 @@ unless defined?(Rails)
 
   $:.unshift Rails.root + "app/models"
   $:.unshift Rails.root + "app/presenters"
+  $:.unshift Rails.root + "app/decorators"
   $:.unshift Rails.root + "lib"
 else
   require 'spec_helper'

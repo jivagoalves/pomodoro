@@ -13,7 +13,7 @@
     %tr
       %th
         Activity (hh:mm:ss)
-      - (@report.start_date..@report.end_date).each do |date|
+      - (@report.period).each do |date|
         %th
           = date.strftime('%a')
       %th
@@ -25,13 +25,13 @@
           = activity.description
         - times.each do |time|
           %td
-            = seconds_in_hh_mm_ss(time)
+            = time.to_hh_mm_ss
         %td
-          = seconds_in_hh_mm_ss(times.reduce(:+))
+          = times.reduce(:+).to_hh_mm_ss
   %tfoot
     %tr
       %td
-      - (@report.start_date..@report.end_date).each do |date|
+      - (@report.period).each do |date|
         %td
       %td
-        = seconds_in_hh_mm_ss(@report.map_with_times{|a,times| times.reduce(:+)}.reduce(:+))
+        = @report.map_with_times{|a,times| times.reduce(:+)}.reduce(:+).to_hh_mm_ss

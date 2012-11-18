@@ -6,19 +6,27 @@ describe ActivitiesController do
       mock_model('Activity')
       Activity.should_receive(:new).and_return("a new activity")
       Activity.should_receive(:all).and_return(['activities'])
+      SpentTime.should_receive(
+        :updated_today
+      ).and_return(['spent times'])
+
       get :new
     end
 
-    it 'should render the new template' do
+    it 'renders the new template' do
       response.should render_template('new')
     end
 
-    it 'should assign @activity with a new activity' do
+    it 'assigns @activity with a new activity' do
       assigns(:activity).should == "a new activity"
     end
 
-    it 'should assign @activities with all existing activities' do
+    it 'assigns @activities with all existing activities' do
       assigns(:activities).should == ['activities']
+    end
+
+    it 'assigns @spent_times with SpentTime.updated_today' do
+      assigns(:spent_times).should == ['spent times']
     end
   end
 
@@ -29,12 +37,15 @@ describe ActivitiesController do
       Activity.stub(:new).and_return(activity)
     end
 
-    it 'should create a new activity from user input' do
-      Activity.should_receive(:new).with('description' => 'my activity')
+    it 'creates a new activity from user input' do
+      Activity.should_receive(:new).with(
+        'description' => 'my activity'
+      )
+
       post :create, :activity => {'description' => 'my activity'}
     end
 
-    it 'should ask to save the activity' do
+    it 'asks to save the activity' do
       activity.should_receive(:save)
       post :create, :activity => {'description' => 'my activity'}
     end
@@ -44,18 +55,18 @@ describe ActivitiesController do
         activity.stub(:save).and_return(true)
       end
 
-      it 'should redirect to new template' do
+      it 'redirects to new template' do
         post :create, :activity => {'description' => 'my activity'}
-        response.should redirect_to(new_activity_path)
+        controller.should respond_with(:redirect)
       end
     end
 
     context 'when the activity creation fails' do
       before :each do
-        activity.stub(:save).and_return(false)
+        activity.stub(:errors).and_return(['error'])
       end
 
-      it 'should render the new template' do
+      it 'renders the new template' do
         post :create, :activity => {}
         response.should render_template('new')
       end

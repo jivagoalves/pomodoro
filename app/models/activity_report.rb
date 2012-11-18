@@ -29,19 +29,25 @@ class ActivityReport
     end
   end
 
+  def period
+    start_date..end_date
+  end
+
   private
 
   def default_attrs
     {
       start_date: Date.today,
-      end_date: Date.today + 1.day
+      end_date: Date.today
     }
   end
 
   def load_activities_with_time_spent
     @activities = Activity.executed_between(start_date, end_date)
     @report = @activities.each_with_object({}) do |a, r|
-      r[a.id] = a.time_spent_per_day_between(start_date, end_date)
+      r[a.id] = a.time_spent_per_day_between(start_date, end_date).map do |time|
+        TimeDecorator.new(time)
+      end
     end
   end
 
