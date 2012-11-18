@@ -34,4 +34,4 @@
       - @report.period.each do |date|
         %td
       %td
-        = @report.map_with_times{|a,times| times.reduce(:+)}.reduce(:+).to_hh_mm_ss
+        = @report.total_spent_time.to_hh_mm_ss

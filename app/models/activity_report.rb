@@ -35,6 +35,12 @@ class ActivityReport
     DateRange.new(start_date, end_date)
   end
 
+  def total_spent_time
+    map_with_times do |a,times|
+      times.reduce(:+)
+    end.reduce(:+)
+  end
+
   private
 
   def default_attrs
