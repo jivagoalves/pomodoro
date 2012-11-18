@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'date/date_range'
 
 describe Activity do
   context "after initialization" do
@@ -22,7 +23,7 @@ describe Activity do
     end
   end
 
-  describe ".executed_between" do
+  describe ".executed_at(period)" do
     before do
       2.times do |n|
         Activity.create! do |a|
@@ -36,17 +37,19 @@ describe Activity do
       end
     end
 
-    it "returns activities executed between a period" do
-      activities = Activity.executed_between(
+    it "returns activities executed in the period" do
+      activities = Activity.executed_at DateRange.new(
         Date.yesterday,
         Date.today
       )
       activities.should have(1).item
-      activities.first.spent_times.map(&:time).should include(10)
+      activities.first.spent_times.map(
+        &:time
+      ).should include(10)
     end
   end
 
-  describe "#time_spent_between" do
+  describe "#time_spent_at(period)" do
     let(:activity) { Activity.create! }
 
     before do
@@ -59,14 +62,14 @@ describe Activity do
       end
     end
 
-    it "returns the time spent between a period of time" do
-      time = activity.time_spent_between(
+    it "returns total time spent in the period" do
+      time = activity.time_spent_at DateRange.new(
         Date.yesterday - 1.day,
         Date.yesterday
       )
       time.should == 0
 
-      time = activity.time_spent_between(
+      time = activity.time_spent_at DateRange.new(
         Date.today,
         Date.tomorrow
       )
@@ -74,7 +77,7 @@ describe Activity do
     end
   end
 
-  describe "#time_spent_per_day_between" do
+  describe "#time_spent_per_day_at(period)" do
     let(:activity) { Activity.create! }
 
     before do
@@ -87,8 +90,8 @@ describe Activity do
       end
     end
 
-    it "returns an array of time per day in a period" do
-      times = activity.time_spent_per_day_between(
+    it "returns an array of time per day in the period" do
+      times = activity.time_spent_per_day_at DateRange.new(
         Date.today,
         Date.tomorrow
       )

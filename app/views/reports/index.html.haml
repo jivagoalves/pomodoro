@@ -13,7 +13,7 @@
     %tr
       %th
         Activity (hh:mm:ss)
-      - (@report.period).each do |date|
+      - @report.period.each do |date|
         %th
           = date.strftime('%a')
       %th
@@ -31,7 +31,7 @@
   %tfoot
     %tr
       %td
-      - (@report.period).each do |date|
+      - @report.period.each do |date|
         %td
       %td
         = @report.map_with_times{|a,times| times.reduce(:+)}.reduce(:+).to_hh_mm_ss

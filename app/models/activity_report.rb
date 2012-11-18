@@ -1,3 +1,5 @@
+require 'date/date_range'
+
 class ActivityReport
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -30,7 +32,7 @@ class ActivityReport
   end
 
   def period
-    start_date..end_date
+    DateRange.new(start_date, end_date)
   end
 
   private
@@ -43,9 +45,9 @@ class ActivityReport
   end
 
   def load_activities_with_time_spent
-    @activities = Activity.executed_between(start_date, end_date)
+    @activities = Activity.executed_at(period)
     @report = @activities.each_with_object({}) do |a, r|
-      r[a.id] = a.time_spent_per_day_between(start_date, end_date).map do |time|
+      r[a.id] = a.time_spent_per_day_at(period).map do |time|
         TimeDecorator.new(time)
       end
     end
