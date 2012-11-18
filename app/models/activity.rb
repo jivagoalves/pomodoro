@@ -13,7 +13,7 @@ class Activity < ActiveRecord::Base
   def self.executed_between(start_dt, end_dt)
     Activity.includes(:spent_times).all.select do |a|
       a.spent_times.any? do |s|
-        s.updated_at.between?(start_dt, end_dt)
+        s.updated_at.to_date.between?(start_dt, end_dt)
       end
     end
   end

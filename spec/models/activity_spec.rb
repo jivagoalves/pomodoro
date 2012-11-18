@@ -28,8 +28,8 @@ describe Activity do
         Activity.create! do |a|
           SpentTime.new(time: 10 + n) do |s|
             s.activity = a
-            s.created_at = Date.today + n.days
-            s.updated_at = Date.today + n.days
+            s.created_at = Time.now + n.days
+            s.updated_at = Time.now + n.days
             s.save!
           end
         end
