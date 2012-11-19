@@ -1,11 +1,13 @@
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/array/access'
+require 'delegate'
 
-class TimeDecorator
+class TimeDecorator < SimpleDelegator
   include Comparable
 
   def initialize(time)
     @time = time
+    super(@time)
   end
 
   def to_hh_mm_ss

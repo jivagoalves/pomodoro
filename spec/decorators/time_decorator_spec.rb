@@ -6,6 +6,12 @@ describe TimeDecorator do
     TimeDecorator.new(seconds)
   end
 
+  describe "#divmod" do
+    it "is delegated to decorated object" do
+      time(10).divmod(5).should == [2,0]
+    end
+  end
+
   describe "#to_hh_mm_ss" do
     it "converts nil to '00:00:00'" do
       time(nil).to_hh_mm_ss.should == '00:00:00'
