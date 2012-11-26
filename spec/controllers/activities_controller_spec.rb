@@ -4,8 +4,12 @@ describe ActivitiesController do
   describe '#new' do
     before :each do
       mock_model('Activity')
-      Activity.should_receive(:new).and_return("a new activity")
-      Activity.should_receive(:all).and_return(['activities'])
+      Activity.should_receive(
+        :new
+      ).and_return("a new activity")
+      Activity.should_receive(
+        :ordered_by_most_active
+      ).and_return(['activities'])
       SpentTime.should_receive(
         :updated_today
       ).and_return(['spent times'])

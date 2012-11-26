@@ -3,9 +3,15 @@ class SpentTime < ActiveRecord::Base
 
   belongs_to :activity
 
-  validates_presence_of :activity
+  validates :activity, presence: true
 
-  scope :updated_today, lambda { where('updated_at > ?', Date.today) }
+  scope :updated_today, lambda {
+    where('updated_at > ?', Date.today)
+  }
+
+  def self.last_updated
+    order('updated_at DESC').first
+  end
 
   after_initialize do |st|
     st.time ||= 0

@@ -35,4 +35,21 @@ describe SpentTime do
       end
     end
   end
+
+  describe ".last_updated" do
+    before do
+      Activity.create! do |a|
+        [5, 10].each do |time|
+          SpentTime.new(time: time) do |s|
+            s.activity = a
+            s.save!
+          end
+        end
+      end
+    end
+
+    it "returns the most recent" do
+      SpentTime.last_updated.time.should == 10
+    end
+  end
 end

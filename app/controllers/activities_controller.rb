@@ -7,7 +7,7 @@ class ActivitiesController < ApplicationController
 
   def new
     @activity = Activity.new
-    @activities = Activity.all
+    @activities = Activity.ordered_by_most_active
     @spent_times = SpentTime.updated_today
   end
 
