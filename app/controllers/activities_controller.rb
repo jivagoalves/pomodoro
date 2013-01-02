@@ -17,6 +17,12 @@ class ActivitiesController < ApplicationController
     respond_with activity
   end
 
+  def update
+    activity = Activity.find(params[:id])
+    activity.update_attributes(params[:activity])
+    respond_with activity
+  end
+
   def destroy
     activity = Activity.find(params[:id])
     activity.destroy
