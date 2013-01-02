@@ -1,9 +1,14 @@
 class Pomodoro.Views.Activity extends Backbone.View
+  enterKeyCode: 13
+
   template: JST['activity']
 
   events:
     'click .destroy'          : 'destroy'
     'click .spent-time-today' : 'toggleSpentTimeList'
+    'dblclick .description'   : 'showInput'
+    'blur input'              : 'hideInput'
+    'keyup input'             : 'saveOnEnter'
 
   tagName: 'li'
 
@@ -15,6 +20,12 @@ class Pomodoro.Views.Activity extends Backbone.View
   setProperties: ->
     @timerView = @options.timerView
     @spentTimesCollection = @options.spentTimes
+
+  inputEl: ->
+    @$('input')
+
+  descriptionEl: ->
+    @$('.description')
 
   destroy: ->
     if confirm('Are you sure?')
@@ -31,6 +42,26 @@ class Pomodoro.Views.Activity extends Backbone.View
   toggleSpentTimeList: ->
     @spentTimeListView.toggle()
     false
+
+  showInput: ->
+    @inputEl().toggleClass('hidden').focus()
+    @descriptionEl().toggleClass('hidden')
+    false
+
+  hideInput: ->
+    @inputEl().toggleClass('hidden')
+    @descriptionEl().toggleClass('hidden')
+
+  saveOnEnter: (e)->
+    if e.keyCode == @enterKeyCode
+      @model.save {
+        description: @inputEl().val()
+      }, {
+        success: (model, response) =>
+          @render model: model.toJSON()
+        error: (model, response) =>
+          alert('Please try again')
+      }
 
   updateControl: ->
     if @timerView.isReady()
