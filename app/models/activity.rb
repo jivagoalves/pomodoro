@@ -13,13 +13,13 @@ class Activity < ActiveRecord::Base
   def self.ordered_by_most_active
     # TODO: Optimize this method
     # TODO: Also check others
-    Activity.all.sort do |a,b|
+    self.all.sort do |a,b|
       b.activeness <=> a.activeness
     end
   end
 
   def self.executed_at(period)
-    Activity.includes(:spent_times).all.select do |a|
+    self.includes(:spent_times).all.select do |a|
       a.spent_times.any? do |s|
         period.cover?(s.updated_at.to_date)
       end
