@@ -32,6 +32,8 @@ class Pomodoro.Views.Activity extends Backbone.View
       @model.destroy
         success: (model, response)=>
           @spentTimesCollection.removeByActivity(model)
+          # FIXME Check if the timer is running for this
+          # activity before doing this.
           @timerView.resetTimer()
           this.$el.fadeOut =>
             @remove()

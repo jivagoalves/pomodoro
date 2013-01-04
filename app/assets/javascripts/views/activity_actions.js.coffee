@@ -7,6 +7,8 @@ class Pomodoro.Views.ActivityActions extends Backbone.View
     'click .pause'            : 'pauseTimer'
     'click .resume'           : 'resumeTimer'
 
+  started: false
+
   initialize: ->
     @timerView = @options.timerView
     @spentTimesCollection = @options.spentTimesCollection
@@ -18,6 +20,7 @@ class Pomodoro.Views.ActivityActions extends Backbone.View
     @timerView.on 'ready paused', =>
       if @timerView.isReady()
         @unbindTimerEvents()
+        @started = false
       @render()
     @timerView.on 'reset', =>
       @saveSpentTime()
@@ -35,11 +38,18 @@ class Pomodoro.Views.ActivityActions extends Backbone.View
         @timerView.resetTimer()
     }
 
-  render: ->
-    this.$el.html @template
+  templateAttributes: ->
+    if @started
       timer:
         isRunning: @timerView.isRunning()
         isPaused: @timerView.isPaused()
+    else
+      timer:
+        isRunning: false
+        isPaused: false
+
+  render: ->
+    this.$el.html @template(@templateAttributes())
     this.$el.hide().fadeIn(1000)
 
   canUseTimer: ->
@@ -51,6 +61,7 @@ class Pomodoro.Views.ActivityActions extends Backbone.View
     return unless @canUseTimer()
     if @timerView.isReady()
       @bindTimerEvents()
+      @started = true
       @timerView.startTimer(time_in_seconds: 25 * 60)
     else
       @startTimerOnReady()
@@ -60,6 +71,7 @@ class Pomodoro.Views.ActivityActions extends Backbone.View
     start = =>
       @timerView.off('ready', start, @)
       @bindTimerEvents()
+      @started = true
       @timerView.startTimer(time_in_seconds: 25 * 60)
     @timerView.on('ready', start, @)
 
