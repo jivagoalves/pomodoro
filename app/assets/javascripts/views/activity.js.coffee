@@ -11,10 +11,19 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   initialize: ->
     @setProperties()
+    @bindEventsOnTimeSpentOnActivity()
 
   setProperties: ->
     @timerView = @options.timerView
     @spentTimesCollection = @options.spentTimes
+
+  bindEventsOnTimeSpentOnActivity: ->
+    moveActivityToTop = =>
+      @$el.prependTo(@$el.parent())
+    @timesSpentOnActivity().on("add", moveActivityToTop)
+
+  timesSpentOnActivity: ->
+    @spentTimesCollection.findByActivity(@model)
 
   destroy: ->
     if confirm('Are you sure?')
@@ -67,7 +76,7 @@ class Pomodoro.Views.Activity extends Backbone.View
   renderTotalTime: ->
     new Pomodoro.Views.TotalSpentTime(
       el: @$('.spent-time-today')
-      collection: @spentTimesCollection.findByActivity(@model)
+      collection: @timesSpentOnActivity()
     ).render()
 
   renderActions: ->
@@ -80,7 +89,7 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   appendSpentTimeList: ->
     @spentTimeListView = new Pomodoro.Views.SpentTimeList(
-      collection: @spentTimesCollection.findByActivity(@model)
+      collection: @timesSpentOnActivity()
     )
     @$('.info').append @spentTimeListView.
       render().
@@ -89,5 +98,5 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   appendNotification: ->
     view = new Pomodoro.Views.Notification
-      collection: @spentTimesCollection.findByActivity(@model)
+      collection: @timesSpentOnActivity()
     @$('.info').append(view.render().el)
