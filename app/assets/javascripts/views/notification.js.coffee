@@ -11,16 +11,16 @@ class Pomodoro.Views.Notification extends Backbone.View
       @render()
 
   animate: (afterAnimation = ->) ->
-    this.$el.hide().
+    @$el.hide().
       fadeIn 1000, afterAnimation
 
   fadeOutLaterOn: ->
     fadeOut = =>
-      this.$el.fadeOut(1000)
+      @$el.fadeOut(1000)
     setTimeout fadeOut, 5000
 
   render: ->
-    this.$el.html(@message)
+    @$el.html(@message)
     @animate =>
       @fadeOutLaterOn()
-    this
+    @

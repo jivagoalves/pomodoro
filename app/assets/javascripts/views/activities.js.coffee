@@ -11,7 +11,7 @@ class Pomodoro.Views.Activities extends Backbone.View
     @addAll()
 
   removeAll: =>
-    this.$el.html('')
+    @$el.html('')
 
   addAll: () =>
     @collection.each(@appendOne)
@@ -21,15 +21,15 @@ class Pomodoro.Views.Activities extends Backbone.View
     spentTimes: @options.spentTimes
 
   appendOne: (activity) =>
-    this.$el.append new Pomodoro.Views.Activity(
+    @$el.append new Pomodoro.Views.Activity(
       _.extend { model: activity }, @activityAttributes()
     ).render().el
 
   prependOne: (activity) =>
-    this.$el.prepend(new Pomodoro.Views.Activity(
+    @$el.prepend(new Pomodoro.Views.Activity(
       _.extend { model: activity }, @activityAttributes()
     ).render(timer: { isStarted: false, isPaused: false }).el)
 
   render: =>
     @addAll()
-    return this
+    @
