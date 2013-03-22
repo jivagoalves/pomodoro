@@ -24,7 +24,7 @@ class Pomodoro.Views.Activity extends Backbone.View
           # FIXME Check if the timer is running for this
           # activity before doing this.
           @timerView.resetTimer()
-          this.$el.fadeOut =>
+          @$el.fadeOut =>
             @remove()
         error: =>
           alert('Something went wrong!')
@@ -48,11 +48,11 @@ class Pomodoro.Views.Activity extends Backbone.View
     @appendNotification()
     @renderActions()
     @appendSpentTimeList()
-    this.$el.hide().fadeIn(1000)
-    this
+    @$el.hide().fadeIn(1000)
+    @
 
   setHtml: (options = {})->
-    this.$el.html @template(
+    @$el.html @template(
       _.extend {
         model: @model.toJSON()
       }, options
@@ -66,13 +66,13 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   renderTotalTime: ->
     new Pomodoro.Views.TotalSpentTime(
-      el: this.$('.spent-time-today')
+      el: @$('.spent-time-today')
       collection: @spentTimesCollection.findByActivity(@model)
     ).render()
 
   renderActions: ->
     new Pomodoro.Views.ActivityActions(
-      el: this.$('.actions')
+      el: @$('.actions')
       model: @model
       timerView: @timerView
       spentTimesCollection: @spentTimesCollection
@@ -82,7 +82,7 @@ class Pomodoro.Views.Activity extends Backbone.View
     @spentTimeListView = new Pomodoro.Views.SpentTimeList(
       collection: @spentTimesCollection.findByActivity(@model)
     )
-    this.$('.info').append @spentTimeListView.
+    @$('.info').append @spentTimeListView.
       render().
       hide().
       el
@@ -90,4 +90,4 @@ class Pomodoro.Views.Activity extends Backbone.View
   appendNotification: ->
     view = new Pomodoro.Views.Notification
       collection: @spentTimesCollection.findByActivity(@model)
-    this.$('.info').append(view.render().el)
+    @$('.info').append(view.render().el)
