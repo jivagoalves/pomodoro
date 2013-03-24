@@ -39,13 +39,14 @@ gem 'jquery-rails'
 
 group :test, :development do
   gem 'factory_girl_rails'
+  gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
+  gem 'guard-jasmine'
+  gem 'jasmine-jquery-rails'
 end
 
 group :test do
   gem 'cucumber-rails', require: false
   gem 'rspec-rails'
-  gem 'jasmine'
-  gem 'jasminerice'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
 end
