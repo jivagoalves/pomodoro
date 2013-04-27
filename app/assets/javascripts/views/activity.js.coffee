@@ -11,16 +11,16 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   initialize: ->
     @setProperties()
-    @bindEventsOnTimeSpentOnActivity()
 
   setProperties: ->
     @timerView = @options.timerView
     @spentTimesCollection = @options.spentTimes
 
-  bindEventsOnTimeSpentOnActivity: ->
-    moveActivityToTop = =>
-      @$el.prependTo(@$el.parent())
-    @timesSpentOnActivity().on("add", moveActivityToTop)
+  moveActivityToTop: ->
+    @$el.
+      hide().
+      prependTo(@$el.parent()).
+      fadeIn(1000)
 
   timesSpentOnActivity: ->
     @spentTimesCollection.findByActivity(@model)
@@ -85,7 +85,7 @@ class Pomodoro.Views.Activity extends Backbone.View
       model: @model
       timerView: @timerView
       spentTimesCollection: @spentTimesCollection
-    ).render()
+    ).render().on("start", => @moveActivityToTop())
 
   appendSpentTimeList: ->
     @spentTimeListView = new Pomodoro.Views.SpentTimeList(
