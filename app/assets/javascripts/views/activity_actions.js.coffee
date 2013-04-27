@@ -51,17 +51,22 @@ class Pomodoro.Views.ActivityActions extends Backbone.View
   render: ->
     this.$el.html @template(@templateAttributes())
     this.$el.hide().fadeIn(1000)
+    @
 
   canUseTimer: ->
     return true if @timerView.isReady()
     msg = "Timer's going to restart. Are you sure?"
     confirm(msg) ? true : false
 
+  prepareToStartTimer: ->
+    @bindTimerEvents()
+    @started = true
+    @trigger("start")
+
   startTimer: ->
     return unless @canUseTimer()
     if @timerView.isReady()
-      @bindTimerEvents()
-      @started = true
+      @prepareToStartTimer()
       @timerView.startTimer(time_in_seconds: 25 * 60)
     else
       @startTimerOnReady()
@@ -70,8 +75,7 @@ class Pomodoro.Views.ActivityActions extends Backbone.View
   startTimerOnReady: ->
     start = =>
       @timerView.off('ready', start, @)
-      @bindTimerEvents()
-      @started = true
+      @prepareToStartTimer()
       @timerView.startTimer(time_in_seconds: 25 * 60)
     @timerView.on('ready', start, @)
 
