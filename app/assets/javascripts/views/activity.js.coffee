@@ -3,7 +3,7 @@ class Pomodoro.Views.Activity extends Backbone.View
 
   events:
     'click .destroy'          : 'destroy'
-    'click .spent-time-today' : 'toggleSpentTimeList'
+    'click .spent-time-today' : 'toggleSpentTimeArea'
 
   tagName: 'li'
 
@@ -39,8 +39,9 @@ class Pomodoro.Views.Activity extends Backbone.View
           alert('Something went wrong!')
     false
 
-  toggleSpentTimeList: ->
+  toggleSpentTimeArea: ->
     @spentTimeListView.toggle()
+    @spentTimeFormView.toggle()
     false
 
   updateControl: ->
@@ -57,6 +58,7 @@ class Pomodoro.Views.Activity extends Backbone.View
     @appendNotification()
     @renderActions()
     @appendSpentTimeList()
+    @appendSpentTimeForm()
     @$el.hide().fadeIn(1000)
     @
 
@@ -88,13 +90,15 @@ class Pomodoro.Views.Activity extends Backbone.View
     ).render().on("start", => @moveActivityToTop())
 
   appendSpentTimeList: ->
-    @spentTimeListView = new Pomodoro.Views.SpentTimeList(
-      collection: @timesSpentOnActivity()
-    )
-    @$('.info').append @spentTimeListView.
-      render().
-      hide().
-      el
+    @spentTimeListView = new Pomodoro.Views.SpentTimeList(collection: @timesSpentOnActivity())
+    @$('.info').append(@spentTimeListView.render().hide().el)
+
+  appendSpentTimeForm: ->
+    @spentTimeFormView = new Pomodoro.Views.SpentTimeForm {
+      model: @model
+      collection: @spentTimesCollection
+    }
+    @$('.info').append(@spentTimeFormView.render().hide().el)
 
   appendNotification: ->
     view = new Pomodoro.Views.Notification

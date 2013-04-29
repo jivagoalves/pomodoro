@@ -16,9 +16,8 @@ class Pomodoro.Views.SpentTimeList extends Backbone.View
     this.$el.html('')
 
   appendOne: (spentTime)=>
-    this.$el.append new Pomodoro.Views.SpentTimeItem(
-      model: spentTime
-    ).render().el
+    view = new Pomodoro.Views.SpentTimeItem(model: spentTime)
+    this.$el.append(view.render().el)
 
   addAll: ->
     @collection.each(@appendOne)
