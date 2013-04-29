@@ -1,7 +1,7 @@
 .info
   %span.description= @model.description
 
-  %input.hidden{ type: 'text', placeholder: @model.description }
+  %input.for-description.hidden{ type: 'text', placeholder: @model.description }
 
   (
   %a.spent-time-today{ href: '#' }

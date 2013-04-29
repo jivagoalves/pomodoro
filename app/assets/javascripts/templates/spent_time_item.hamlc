@@ -1,1 +1,3 @@
 = "#{@time.toHMS()} at #{@updatedAt.toLocaleTimeString()}"
+%a.spent-time-delete{ href: "#" }
+  Delete

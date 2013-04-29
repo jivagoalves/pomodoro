@@ -2,15 +2,15 @@ class Pomodoro.Views.ActivityDescription extends Backbone.View
   enterKeyCode: 13
 
   events:
-    'dblclick'    : 'showInput'
-    'blur input'  : 'hideInput'
-    'keyup input' : 'saveOnEnter'
+    'dblclick .description'       : 'showInput'
+    'blur input.for-description'  : 'hideInput'
+    'keyup input.for-description' : 'saveOnEnter'
 
   initialize: ->
     @model.on('change:description', @render, @)
 
   inputEl: ->
-    @$('input')
+    @$('input.for-description')
 
   descriptionEl: ->
     @$('.description')

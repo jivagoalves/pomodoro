@@ -1,7 +1,7 @@
 class SpentTimesController < ApplicationController
   respond_to :html, :json
 
-  before_filter :load_activity
+  before_filter :load_activity, except: [:destroy]
 
   def index
     respond_with(spent_times)
@@ -11,6 +11,12 @@ class SpentTimesController < ApplicationController
     spent_time = SpentTime.new(params[:spent_time])
     spent_time.save
     respond_with @activity, spent_time
+  end
+
+  def destroy
+    spent_time = SpentTime.find(params[:id])
+    spent_time.destroy
+    respond_with(spent_time)
   end
 
   private

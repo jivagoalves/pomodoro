@@ -2,10 +2,10 @@ class Pomodoro.Views.ActivityActions extends Backbone.View
   template: JST['activity_actions']
 
   events:
-    'click .start'            : 'startTimer'
-    'click .stop'             : 'stopTimer'
-    'click .pause'            : 'pauseTimer'
-    'click .resume'           : 'resumeTimer'
+    'click .start'  : 'startTimer'
+    'click .stop'   : 'stopTimer'
+    'click .pause'  : 'pauseTimer'
+    'click .resume' : 'resumeTimer'
 
   started: false
 
