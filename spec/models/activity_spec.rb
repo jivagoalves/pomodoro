@@ -76,14 +76,9 @@ describe Activity do
     end
 
     it "returns activities executed in the period" do
-      activities = Activity.executed_at DateRange.new(
-        Date.yesterday,
-        Date.today
-      )
+      activities = Activity.executed_at DateRange.new(Date.yesterday, Date.today)
       activities.should have(1).item
-      activities.first.spent_times.map(
-        &:time
-      ).should include(10)
+      activities.first.spent_times.map(&:time).should include(10)
     end
   end
 
