@@ -87,7 +87,7 @@ class Pomodoro.Views.Activity extends Backbone.View
       model: @model
       timerView: @timerView
       spentTimesCollection: @spentTimesCollection
-    ).render().on("start", => @moveActivityToTop())
+    ).render().on("start stop", => @moveActivityToTop())
 
   appendSpentTimeList: ->
     @spentTimeListView = new Pomodoro.Views.SpentTimeList(collection: @timesSpentOnActivity())

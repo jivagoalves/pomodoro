@@ -21,6 +21,7 @@ class Pomodoro.Views.ActivityActions extends Backbone.View
       if @timerView.isReady()
         @unbindTimerEvents()
         @started = false
+        @trigger("stop")
       @render()
     @timerView.on 'reset', =>
       @saveSpentTime()
