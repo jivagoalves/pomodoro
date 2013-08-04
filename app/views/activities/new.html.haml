@@ -18,6 +18,8 @@
 %section#activity-area
   %form#new-activity
     %p
+      %label{ for: "activity-description", style: "display: none" }
+        Description
       %input#activity-description{ type: 'text', size: '30' }
     %p
       %input{ type: 'submit', value: 'Add' }

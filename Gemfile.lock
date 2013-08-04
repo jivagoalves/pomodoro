@@ -35,16 +35,14 @@ GEM
     activesupport (3.2.14)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    addressable (2.3.2)
     arel (3.0.2)
     builder (3.0.4)
-    capybara (1.1.2)
+    capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
-      selenium-webdriver (~> 2.0)
-      xpath (~> 0.1.4)
+      xpath (~> 2.0)
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
     coderay (1.0.9)
@@ -55,19 +53,11 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.3)
-    cucumber (1.2.1)
-      builder (>= 2.1.2)
-      diff-lcs (>= 1.1.3)
-      gherkin (~> 2.11.0)
-      json (>= 1.4.6)
-    cucumber-rails (1.3.0)
-      capybara (>= 1.1.2)
-      cucumber (>= 1.1.8)
-      nokogiri (>= 1.5.0)
-    database_cleaner (0.8.0)
+    database_cleaner (1.0.1)
     diff-lcs (1.2.4)
     ejs (1.0.0)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.0.0)
@@ -75,9 +65,9 @@ GEM
     factory_girl_rails (4.0.0)
       factory_girl (~> 4.0.0)
       railties (>= 3.0.0)
+    faye-websocket (0.4.7)
+      eventmachine (>= 0.12.0)
     ffi (1.1.5)
-    gherkin (2.11.2)
-      json (>= 1.4.6)
     guard (1.5.4)
       listen (>= 0.4.2)
       lumberjack (>= 1.0.2)
@@ -100,6 +90,7 @@ GEM
       tilt (>= 1.3.3)
     hike (1.2.3)
     hpricot (0.8.6)
+    http_parser.rb (0.5.3)
     i18n (0.6.4)
     jasmine-jquery-rails (1.4.2)
     journey (1.0.4)
@@ -110,8 +101,6 @@ GEM
     kicker (2.6.1)
       listen
     libv8 (3.11.8.13)
-    libwebsocket (0.1.5)
-      addressable
     listen (0.4.7)
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
@@ -122,8 +111,14 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
+    mini_portile (0.5.1)
     multi_json (1.7.7)
-    nokogiri (1.5.5)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
+    poltergeist (1.3.0)
+      capybara (~> 2.1.0)
+      faye-websocket (>= 0.4.4, < 0.5.0)
+      http_parser.rb (~> 0.5.3)
     polyglot (0.3.3)
     pry (0.9.12)
       coderay (~> 1.0.5)
@@ -175,17 +170,11 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    rubyzip (0.9.9)
     sass (3.2.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.25.0)
-      childprocess (>= 0.2.5)
-      libwebsocket (~> 0.1.3)
-      multi_json (~> 1.0)
-      rubyzip
     shoulda-matchers (1.3.0)
       activesupport (>= 3.0.0)
     slop (3.4.4)
@@ -208,16 +197,16 @@ GEM
     uglifier (1.2.7)
       execjs (>= 0.3.0)
       multi_json (~> 1.3)
-    xpath (0.1.4)
+    xpath (2.0.0)
       nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  capybara (~> 2.1.0)
   coffee-rails (~> 3.2.1)
-  cucumber-rails
-  database_cleaner
+  database_cleaner (< 1.1.0)
   execjs
   factory_girl_rails
   guard-jasmine
@@ -229,6 +218,7 @@ DEPENDENCIES
   jquery-rails
   kicker
   libv8
+  poltergeist (~> 1.3.0)
   rails (= 3.2.14)
   rails-backbone
   rspec-rails (~> 2.0)

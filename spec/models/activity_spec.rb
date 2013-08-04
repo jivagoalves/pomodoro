@@ -24,7 +24,7 @@ describe Activity do
   end
 
   describe ".ordered_by_most_active" do
-    let(:now) { Time.now }
+    let(:now) { Time.zone.now }
     let(:one_hour_ago) { now - 1.hour }
     let(:two_hours_ago) { now - 2.hours }
 
@@ -67,8 +67,8 @@ describe Activity do
         Activity.create! do |a|
           SpentTime.new(time: 10 + n) do |s|
             s.activity = a
-            s.created_at = Time.now + n.days
-            s.updated_at = Time.now + n.days
+            s.created_at = Time.zone.now + n.days
+            s.updated_at = Time.zone.now + n.days
             s.save!
           end
         end
@@ -88,14 +88,18 @@ describe Activity do
 
     context "when there are spent times" do
       before do
-        Activity.new do |a|
-          a.updated_at = now
-          a.save!
-          SpentTime.new do |s|
-            s.activity = a
-            s.updated_at = one_hour_from_now
-            s.save!
+        Activity.new do |activity|
+          activity.created_at = now
+          activity.updated_at = now
+          activity.save!
+
+          SpentTime.new do |time|
+            time.activity = activity
+            time.created_at = one_hour_from_now
+            time.updated_at = one_hour_from_now
+            time.save!
           end
+
         end
       end
 
@@ -125,7 +129,7 @@ describe Activity do
     before do
       3.times do |n|
         SpentTime.new(time: 10) do |s|
-          s.created_at = s.updated_at = Time.now + n.days
+          s.created_at = s.updated_at = Time.zone.now + n.days
           s.activity = activity
           s.save!
         end
@@ -153,7 +157,7 @@ describe Activity do
     before do
       2.times do |n|
         SpentTime.new(time: 1 + n) do |s|
-          s.created_at = s.updated_at = Time.now + n.days
+          s.created_at = s.updated_at = Time.zone.now + n.days
           s.activity = activity
           s.save!
         end
