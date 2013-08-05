@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :activity do
-    description 'a description'
+    description 'Some description'
     done false
   end
 end
