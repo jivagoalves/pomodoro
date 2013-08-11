@@ -21,7 +21,7 @@ class Activity < ActiveRecord::Base
   def self.executed_at(period)
     self.includes(:spent_times).all.select do |a|
       a.spent_times.any? do |s|
-        period.cover?(s.updated_at.to_date)
+        period.cover?(s.updated_at)
       end
     end
   end

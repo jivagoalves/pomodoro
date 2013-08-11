@@ -62,21 +62,33 @@ describe Activity do
   end
 
   describe ".executed_at(period)" do
+    let(:now) { Time.zone.now }
+
     before do
-      2.times do |n|
-        Activity.create! do |a|
-          SpentTime.new(time: 10 + n) do |s|
-            s.activity = a
-            s.created_at = Time.zone.now + n.days
-            s.updated_at = Time.zone.now + n.days
-            s.save!
-          end
+      Activity.create! do |a|
+        SpentTime.new(time: 10) do |s|
+          s.activity = a
+          s.created_at = now - 1.day
+          s.updated_at = now - 1.day
+          s.save!
+        end
+      end
+
+      Activity.create! do |a|
+        SpentTime.new(time: 10) do |s|
+          s.activity = a
+          s.created_at = now
+          s.updated_at = now
+          s.save!
         end
       end
     end
 
+    let(:today) { now.to_date.to_time_in_current_zone }
+    let(:tomorrow) { (now + 1.day).to_date.to_time_in_current_zone }
+
     it "returns activities executed in the period" do
-      activities = Activity.executed_at DateRange.new(Date.yesterday, Date.today)
+      activities = Activity.executed_at DateRange.new(today, tomorrow)
       activities.should have(1).item
       activities.first.spent_times.map(&:time).should include(10)
     end
