@@ -1,4 +1,5 @@
 {<img src="https://travis-ci.org/jivagoalves/pomodoro.png" />}[https://travis-ci.org/jivagoalves/pomodoro]
+{<img src="https://codeclimate.com/github/jivagoalves/pomodoro.png" />}[https://codeclimate.com/github/jivagoalves/pomodoro]
 
 == Pomodoro App
 
