@@ -1,3 +1,5 @@
+{<img src="https://travis-ci.org/jivagoalves/pomodoro.png" />}[https://travis-ci.org/jivagoalves/pomodoro]
+
 == Pomodoro App
 
 Application to use Pomodoro technique.
